@@ -1,0 +1,24 @@
+version: "3"
+services:
+  facto_rises:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        - username=devel
+        - userid=1000
+    container_name: facto_rises
+    image: handson-ml2
+    restart: unless-stopped    
+    logging:
+      driver: json-file
+      options:
+        max-size: 50m
+    ports:
+      - "8888:8888"
+      - "6006:6006"
+    volumes:
+      - C:\Users\utilisateur\Desktop\Projet\:/home/devel/handson-ml2
+    command: /opt/conda/envs/tf2/bin/jupyter notebook --ip='0.0.0.0' --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''
+    env_file:
+      - auth.env 
